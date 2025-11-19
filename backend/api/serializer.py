@@ -229,7 +229,7 @@ class AuthorStats(serializers.Serializer):
 #         fields = "__all__"
 
 
-class NotificationSerializer(BaseDepthSerializer):
-    class Meta:
-        model = Notification
-        fields = "__all__"
+# class NotificationSerializer(BaseDepthSerializer):
+#     class Meta:
+#         model = Notification
+#         fields = "__all__"

@@ -143,8 +143,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    comments = CommentSerializer(many=True)
-    
+    comments = CommentSerializer(many=True, read_only=True)
+
     class Meta:
         model = api_models.Post
         fields = "__all__"
@@ -152,10 +152,8 @@ class PostSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super(PostSerializer, self).__init__(*args, **kwargs)
         request = self.context.get('request')
-        if request and request.method == 'POST':
-            self.Meta.depth = 0
-        else:
-            self.Meta.depth = 3
+        self.Meta.depth = 0 if (request and request.method == 'POST') else 3
+
 
 
 

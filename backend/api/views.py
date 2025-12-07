@@ -375,22 +375,14 @@ class DashboardPostCreateAPIView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
-        print(request.data)
+
         user_id = request.data.get('user_id')
         title = request.data.get('title')
         image = request.data.get('image')
         description = request.data.get('description')
         tags = request.data.get('tags')
-        category_id = request.data.get('category')
+        category_id = request.data.get('category_id')   # ← FIXED
         post_status = request.data.get('post_status')
-
-        print(user_id)
-        print(title)
-        print(image)
-        print(description)
-        print(tags)
-        print(category_id)
-        print(post_status)
 
         user = api_models.User.objects.get(id=user_id)
         category = api_models.Category.objects.get(id=category_id)
@@ -406,6 +398,7 @@ class DashboardPostCreateAPIView(generics.CreateAPIView):
         )
 
         return Response({"message": "Post Created Successfully"}, status=status.HTTP_201_CREATED)
+
 
 class DashboardPostEditAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = api_serializer.PostSerializer
